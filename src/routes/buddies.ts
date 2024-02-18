@@ -1,16 +1,18 @@
 import express from "express";
 import { create, getAll, getById, remove, update } from "../controllers/buddies";
+import { validateId } from "../validation/validateId";
+import { validateBuddy } from "../validation/buddies";
 
 const router = express.Router();
 
 router.get("/", getAll);
 
-router.get("/:id", getById);
+router.get("/:id", validateId, getById);
 
-router.post("/", create);
+router.post("/", validateBuddy, create);
 
-router.put("/:id", update);
+router.put("/:id", [validateId, validateBuddy], update);
 
-router.delete("/:id", remove);
+router.delete("/:id", validateId, remove);
 
 export default router;

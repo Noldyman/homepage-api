@@ -12,12 +12,10 @@ export const get = (
 
   if (interval === "day") {
     query = queryToday;
-  } else if (interval === "week" || interval === "month") {
-    query = queryThisWeekOrMonth(interval);
   } else if (interval === "year") {
     query = queryYear;
   } else {
-    res.status(400).send("No or invalid interval was specified in request parameters.");
+    query = queryThisWeekOrMonth(interval);
   }
 
   dbConnection.query(query, (err, results) => {
