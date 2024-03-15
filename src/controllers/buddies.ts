@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { dbConnection } from "../db";
+import { dbPool } from "../db";
 
 export const getAll = (_: Request, res: Response) => {
-  dbConnection.query("SELECT * FROM noldys.buddies", (err, results) => {
+  dbPool.query("SELECT * FROM noldys.buddies", (err, results) => {
     if (err) {
       res.send(err);
     } else {
@@ -12,7 +12,7 @@ export const getAll = (_: Request, res: Response) => {
 };
 
 export const getById = (req: Request, res: Response) => {
-  dbConnection.query(`SELECT * FROM noldys.buddies WHERE id = ${req.params.id}`, (err, results) => {
+  dbPool.query(`SELECT * FROM noldys.buddies WHERE id = ${req.params.id}`, (err, results) => {
     if (err) {
       res.send(err);
     } else {
@@ -22,7 +22,7 @@ export const getById = (req: Request, res: Response) => {
 };
 
 export const create = (req: Request, res: Response) => {
-  dbConnection.query(
+  dbPool.query(
     `INSERT INTO noldys.buddies VALUES (DEFAULT, "${req.body.name}", "${req.body.dateOfBirth}")`,
     (err, result) => {
       if (err) {
@@ -35,7 +35,7 @@ export const create = (req: Request, res: Response) => {
 };
 
 export const update = (req: Request, res: Response) => {
-  dbConnection.query(
+  dbPool.query(
     `UPDATE noldys.buddies SET name = "${req.body.name}", dateOfBirth = "${req.body.dateOfBirth}" WHERE id = ${req.params.id}`,
     (err, result) => {
       if (err) {
@@ -48,7 +48,7 @@ export const update = (req: Request, res: Response) => {
 };
 
 export const remove = (req: Request, res: Response) => {
-  dbConnection.query(`DELETE FROM noldys.buddies WHERE id = ${req.params.id}`, (err, result) => {
+  dbPool.query(`DELETE FROM noldys.buddies WHERE id = ${req.params.id}`, (err, result) => {
     if (err) {
       res.send(err);
     } else {

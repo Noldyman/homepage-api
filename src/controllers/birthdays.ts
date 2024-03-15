@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { dbConnection } from "../db";
+import { dbPool } from "../db";
 import { queryToday, queryThisWeekOrMonth, queryYear, queryCount } from "./queries/birthdays";
 
 export const get = (
@@ -18,7 +18,7 @@ export const get = (
     query = queryThisWeekOrMonth(interval);
   }
 
-  dbConnection.query(query, (err, results) => {
+  dbPool.query(query, (err, results) => {
     if (err) {
       res.send(err);
     } else {
@@ -28,7 +28,7 @@ export const get = (
 };
 
 export const getCount = (_: Request, res: Response) => {
-  dbConnection.query(queryCount, (err, results) => {
+  dbPool.query(queryCount, (err, results) => {
     if (err) {
       res.send(err);
     } else {
