@@ -23,7 +23,13 @@ export const getById = (req: Request, res: Response) => {
 
 export const create = (req: Request, res: Response) => {
   dbPool.query(
-    `INSERT INTO noldys.buddies VALUES (DEFAULT, "${req.body.name}", "${req.body.dateOfBirth}")`,
+    `INSERT INTO noldys.buddies VALUES (DEFAULT, "${req.body.firstName}", "${
+      req.body.lastName
+    }", "${req.body.nickName}", "${req.body.phoneNumber}", "${req.body.nameSavedInPhone}", "${
+      req.body.dateOfBirth
+    }", "${req.body.language}", "${req.body.relationType}", "${
+      req.body.sendAutomaticMessage ? 1 : 0
+    }")`,
     (err, result) => {
       if (err) {
         res.send(err);
@@ -36,7 +42,17 @@ export const create = (req: Request, res: Response) => {
 
 export const update = (req: Request, res: Response) => {
   dbPool.query(
-    `UPDATE noldys.buddies SET name = "${req.body.name}", dateOfBirth = "${req.body.dateOfBirth}" WHERE id = ${req.params.id}`,
+    `UPDATE noldys.buddies SET firstName = "${req.body.firstName}", lastName = "${
+      req.body.lastName
+    }", nickName = "${req.body.nickName}", phoneNumber = "${
+      req.body.phoneNumber
+    }", nameSavedInPhone = "${req.body.nameSavedInPhone}", dateOfBirth = "${
+      req.body.dateOfBirth
+    }", language = "${req.body.language}", relationType = "${
+      req.body.relationType
+    }", sendAutomaticMessage = "${req.body.sendAutomaticMessage ? 1 : 0}" WHERE id = ${
+      req.params.id
+    }`,
     (err, result) => {
       if (err) {
         res.send(err);
